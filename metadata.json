@@ -1,0 +1,6 @@
+{
+  "name": "墨讀 FocusDesk - 沉浸式讀書番茄鐘",
+  "description": "專為學生與深度學習者打造的沉浸式番茄鐘工具，整合 Web Audio 擬真白噪音、科目任務看板、學習熱力圖統計與防分心便籤。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
