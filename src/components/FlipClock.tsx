@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 interface FlipDigitProps {
   digit: string;
+  textFxClass?: string;
 }
 
-export const FlipDigit: React.FC<FlipDigitProps> = ({ digit }) => {
+export const FlipDigit: React.FC<FlipDigitProps> = ({ digit, textFxClass = '' }) => {
   const [current, setCurrent] = useState(digit);
   const [previous, setPrevious] = useState(digit);
   const [isFlipping, setIsFlipping] = useState(false);
@@ -30,7 +31,7 @@ export const FlipDigit: React.FC<FlipDigitProps> = ({ digit }) => {
     <div className="relative w-12 sm:w-16 md:w-20 h-18 sm:h-24 md:h-28 rounded-xl select-none perspective-[800px]">
       {/* 1. Static Upper Half (Shows NEW / CURRENT digit top) */}
       <div className="absolute inset-x-0 top-0 h-1/2 overflow-hidden rounded-t-xl bg-neutral-900 border-t border-x border-neutral-800 shadow-inner flex items-end justify-center z-0">
-        <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums translate-y-[50%]">
+        <span className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums translate-y-[50%] ${textFxClass}`}>
           {current}
         </span>
         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
@@ -38,7 +39,7 @@ export const FlipDigit: React.FC<FlipDigitProps> = ({ digit }) => {
 
       {/* 2. Static Lower Half (Shows PREVIOUS / CURRENT digit bottom) */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 overflow-hidden rounded-b-xl bg-neutral-900 border-b border-x border-neutral-800 shadow-inner flex items-start justify-center z-0">
-        <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums -translate-y-[50%]">
+        <span className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums -translate-y-[50%] ${textFxClass}`}>
           {isFlipping ? previous : current}
         </span>
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -50,7 +51,7 @@ export const FlipDigit: React.FC<FlipDigitProps> = ({ digit }) => {
           className="absolute inset-x-0 top-0 h-1/2 overflow-hidden rounded-t-xl bg-neutral-900 border-t border-x border-neutral-800 flex items-end justify-center origin-bottom z-20 animate-flip-top"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums translate-y-[50%]">
+          <span className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums translate-y-[50%] ${textFxClass}`}>
             {previous}
           </span>
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" />
@@ -63,7 +64,7 @@ export const FlipDigit: React.FC<FlipDigitProps> = ({ digit }) => {
           className="absolute inset-x-0 bottom-0 h-1/2 overflow-hidden rounded-b-xl bg-neutral-900 border-b border-x border-neutral-800 flex items-start justify-center origin-top z-10 animate-flip-bottom"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums -translate-y-[50%]">
+          <span className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-100 tabular-nums -translate-y-[50%] ${textFxClass}`}>
             {current}
           </span>
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -84,6 +85,7 @@ interface FlipClockDisplayProps {
   seconds: number;
   onClick?: () => void;
   modeLabel?: string;
+  textFxClass?: string;
 }
 
 export const FlipClockDisplay: React.FC<FlipClockDisplayProps> = ({
@@ -92,6 +94,7 @@ export const FlipClockDisplay: React.FC<FlipClockDisplayProps> = ({
   seconds,
   onClick,
   modeLabel,
+  textFxClass = '',
 }) => {
   const hrStr = String(hours).padStart(2, '0');
   const minStr = String(minutes).padStart(2, '0');
@@ -116,8 +119,8 @@ export const FlipClockDisplay: React.FC<FlipClockDisplayProps> = ({
           <>
             <div className="flex flex-col items-center">
               <div className="flex items-center gap-1 sm:gap-2">
-                <FlipDigit digit={hrTens} />
-                <FlipDigit digit={hrUnits} />
+                <FlipDigit digit={hrTens} textFxClass={textFxClass} />
+                <FlipDigit digit={hrUnits} textFxClass={textFxClass} />
               </div>
               <span className="text-[10px] sm:text-xs text-neutral-400 uppercase tracking-widest mt-2.5 font-mono">
                 HOURS
@@ -135,8 +138,8 @@ export const FlipClockDisplay: React.FC<FlipClockDisplayProps> = ({
         {/* Minutes Section */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 sm:gap-2">
-            <FlipDigit digit={minTens} />
-            <FlipDigit digit={minUnits} />
+            <FlipDigit digit={minTens} textFxClass={textFxClass} />
+            <FlipDigit digit={minUnits} textFxClass={textFxClass} />
           </div>
           <span className="text-[10px] sm:text-xs text-neutral-500 uppercase tracking-widest mt-2.5 font-mono">
             MINUTES
@@ -152,8 +155,8 @@ export const FlipClockDisplay: React.FC<FlipClockDisplayProps> = ({
         {/* Seconds Section */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 sm:gap-2">
-            <FlipDigit digit={secTens} />
-            <FlipDigit digit={secUnits} />
+            <FlipDigit digit={secTens} textFxClass={textFxClass} />
+            <FlipDigit digit={secUnits} textFxClass={textFxClass} />
           </div>
           <span className="text-[10px] sm:text-xs text-amber-400/80 uppercase tracking-widest mt-2.5 font-mono">
             SECONDS

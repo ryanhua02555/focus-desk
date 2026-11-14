@@ -68,11 +68,13 @@ export interface PomodoroSettings {
   tickingSound: boolean;
   tickingVolume: number;
   clockStyle: ClockStyle;
+  textStyle?: TextStyleMode;
 }
 
 
 export type ThemeMode = 'dark' | 'light' | 'kyoto' | 'forest' | 'sunset' | 'retro' | 'halloween' | 'christmas';
 export type ClockStyle = 'ring' | 'flip' | 'minimal';
+export type TextStyleMode = 'default' | 'neon' | 'aurora' | 'pixel' | 'matrix' | 'literary' | 'cosmic';
 
 export interface StudyQuote {
   id: string;

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { TimerMode, Task, ClockStyle, StudyQuote, ThemeMode } from '../types/pomodoro';
+import { TimerMode, Task, ClockStyle, StudyQuote, ThemeMode, TextStyleMode } from '../types/pomodoro';
 import { Play, Pause, Minimize2, Volume2, SkipForward, RefreshCw } from 'lucide-react';
 import { FlipClockDisplay } from './FlipClock';
+import { getTextFxClass } from '../utils/storage';
 
 interface ZenModeOverlayProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface ZenModeOverlayProps {
   clockStyle?: ClockStyle;
   quote?: StudyQuote;
   theme?: ThemeMode;
+  textStyle?: TextStyleMode;
 }
 
 export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
@@ -33,6 +35,7 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
   clockStyle = 'ring',
   quote,
   theme,
+  textStyle = 'default',
 }) => {
   // ESC key to exit Zen mode
   useEffect(() => {
@@ -135,6 +138,7 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
             minutes={minutes}
             seconds={seconds}
             modeLabel={modeLabel}
+            textFxClass={getTextFxClass(textStyle)}
           />
         ) : (
           <>
@@ -145,7 +149,11 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
 
 
             {/* Huge Digital Clock */}
-            <div className="text-8xl sm:text-9xl md:text-[11rem] font-bold font-mono tracking-tight tabular-nums text-neutral-100 drop-shadow-2xl">
+            <div
+              className={`text-8xl sm:text-9xl md:text-[11rem] font-bold font-mono tracking-tight tabular-nums drop-shadow-2xl ${getTextFxClass(
+                textStyle
+              )}`}
+            >
               {timeFormatted}
             </div>
           </>

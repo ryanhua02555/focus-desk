@@ -1,4 +1,4 @@
-import { Task, SessionRecord, DistractionNote, PomodoroSettings, ThemeMode, CustomSubject, CustomPreset, StudyQuote } from '../types/pomodoro';
+import { Task, SessionRecord, DistractionNote, PomodoroSettings, ThemeMode, CustomSubject, CustomPreset, StudyQuote, TextStyleMode } from '../types/pomodoro';
 
 export const STUDY_QUOTES: StudyQuote[] = [
   // 1. 數學 (Mathematics)
@@ -410,7 +410,28 @@ export const DEFAULT_SETTINGS: PomodoroSettings = {
   tickingSound: false,
   tickingVolume: 0.15,
   clockStyle: 'ring',
+  textStyle: 'default',
 };
+
+export function getTextFxClass(style?: TextStyleMode): string {
+  switch (style) {
+    case 'neon':
+      return 'text-fx-neon';
+    case 'aurora':
+      return 'text-fx-aurora';
+    case 'pixel':
+      return 'text-fx-pixel';
+    case 'matrix':
+      return 'text-fx-matrix';
+    case 'literary':
+      return 'text-fx-literary';
+    case 'cosmic':
+      return 'text-fx-cosmic';
+    case 'default':
+    default:
+      return 'text-fx-default';
+  }
+}
 
 export function formatSecondsToHms(totalSeconds: number): { hours: number; minutes: number; seconds: number; formatted: string } {
   const hours = Math.floor(totalSeconds / 3600);

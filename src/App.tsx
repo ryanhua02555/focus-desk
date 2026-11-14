@@ -14,6 +14,7 @@ import {
   CustomSubject,
   CustomPreset,
   ClockStyle,
+  TextStyleMode,
 } from './types/pomodoro';
 import {
   DEFAULT_SETTINGS,
@@ -496,6 +497,10 @@ export default function App() {
     setSettings(prev => ({ ...prev, clockStyle }));
   };
 
+  const handleSelectTextStyle = (textStyle: TextStyleMode) => {
+    setSettings(prev => ({ ...prev, textStyle }));
+  };
+
   const activeTask = tasks.find(t => t.id === activeTaskId) || null;
   const pendingNotesCount = notes.filter(n => !n.isHandled).length;
 
@@ -672,6 +677,7 @@ export default function App() {
         clockStyle={settings.clockStyle}
         quote={currentQuote}
         theme={theme}
+        textStyle={settings.textStyle || 'default'}
       />
 
 
@@ -702,6 +708,8 @@ export default function App() {
         onSelectTheme={setTheme}
         currentClockStyle={settings.clockStyle || 'ring'}
         onSelectClockStyle={handleSelectClockStyle}
+        currentTextStyle={settings.textStyle || 'default'}
+        onSelectTextStyle={handleSelectTextStyle}
       />
 
       {/* Q版 Festive Mascot & Decorations */}

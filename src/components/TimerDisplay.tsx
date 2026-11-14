@@ -2,7 +2,7 @@ import React from 'react';
 import { TimerMode, Task, PomodoroSettings, CustomPreset, ClockStyle, StudyQuote } from '../types/pomodoro';
 import { Play, Pause, RotateCcw, SkipForward, Plus, Minus, Target, Clock, Sliders, Palette, RefreshCw } from 'lucide-react';
 import { FlipClockDisplay } from './FlipClock';
-import { formatSecondsToHms } from '../utils/storage';
+import { formatSecondsToHms, getTextFxClass } from '../utils/storage';
 
 interface TimerDisplayProps {
   mode: TimerMode;
@@ -246,7 +246,9 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
             {/* Digits with click-to-customize */}
             <div
               onClick={onOpenCustomTime}
-              className="font-mono text-6xl sm:text-7xl font-bold tracking-tight text-neutral-100 tabular-nums cursor-pointer hover:text-amber-400 transition-colors"
+              className={`font-mono text-6xl sm:text-7xl font-bold tracking-tight text-neutral-100 tabular-nums cursor-pointer hover:text-amber-400 transition-all ${getTextFxClass(
+                settings.textStyle
+              )}`}
               title="點擊自訂時間"
             >
               {timeFormatted}
@@ -305,6 +307,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
           minutes={minutes}
           seconds={seconds}
           onClick={onOpenCustomTime}
+          textFxClass={getTextFxClass(settings.textStyle)}
           modeLabel={
             mode === 'pomodoro'
               ? theme === 'halloween'
@@ -328,7 +331,9 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
         <div className="my-10 flex flex-col items-center select-none">
           <div
             onClick={onOpenCustomTime}
-            className="font-mono text-8xl sm:text-9xl font-bold tracking-tighter text-neutral-100 tabular-nums cursor-pointer hover:text-amber-400 transition-colors"
+            className={`font-mono text-8xl sm:text-9xl font-bold tracking-tighter text-neutral-100 tabular-nums cursor-pointer hover:text-amber-400 transition-all ${getTextFxClass(
+              settings.textStyle
+            )}`}
             title="點擊自訂時間"
           >
             {timeFormatted}
