@@ -69,12 +69,14 @@ export interface PomodoroSettings {
   tickingVolume: number;
   clockStyle: ClockStyle;
   textStyle?: TextStyleMode;
+  bgEffect?: DynamicBgEffect;
 }
 
 
 export type ThemeMode = 'dark' | 'light' | 'kyoto' | 'forest' | 'sunset' | 'retro' | 'halloween' | 'christmas';
 export type ClockStyle = 'ring' | 'flip' | 'minimal';
 export type TextStyleMode = 'default' | 'neon' | 'aurora' | 'pixel' | 'matrix' | 'literary' | 'cosmic';
+export type DynamicBgEffect = 'none' | 'stars' | 'rain' | 'sakura' | 'aurora' | 'embers' | 'snow' | 'matrix' | 'bokeh' | 'bubbles' | 'clouds' | 'meteor';
 
 export interface StudyQuote {
   id: string;

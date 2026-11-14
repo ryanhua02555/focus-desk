@@ -1,4 +1,4 @@
-import { Task, SessionRecord, DistractionNote, PomodoroSettings, ThemeMode, CustomSubject, CustomPreset, StudyQuote, TextStyleMode } from '../types/pomodoro';
+import { Task, SessionRecord, DistractionNote, PomodoroSettings, ThemeMode, CustomSubject, CustomPreset, StudyQuote, TextStyleMode, DynamicBgEffect } from '../types/pomodoro';
 
 export const STUDY_QUOTES: StudyQuote[] = [
   // 1. 數學 (Mathematics)
@@ -411,6 +411,7 @@ export const DEFAULT_SETTINGS: PomodoroSettings = {
   tickingVolume: 0.15,
   clockStyle: 'ring',
   textStyle: 'default',
+  bgEffect: 'stars',
 };
 
 export function getTextFxClass(style?: TextStyleMode): string {

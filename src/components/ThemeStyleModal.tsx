@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeMode, ClockStyle, TextStyleMode } from '../types/pomodoro';
+import { ThemeMode, ClockStyle, TextStyleMode, DynamicBgEffect } from '../types/pomodoro';
 import { X, Palette, Check, CircleDot, Clock, AlignJustify, Sparkles } from 'lucide-react';
 
 interface ThemeStyleModalProps {
@@ -11,6 +11,8 @@ interface ThemeStyleModalProps {
   onSelectClockStyle: (style: ClockStyle) => void;
   currentTextStyle?: TextStyleMode;
   onSelectTextStyle?: (style: TextStyleMode) => void;
+  currentBgEffect?: DynamicBgEffect;
+  onSelectBgEffect?: (effect: DynamicBgEffect) => void;
 }
 
 interface ThemeItem {
@@ -181,6 +183,73 @@ const TEXT_STYLES: TextStyleItem[] = [
   },
 ];
 
+interface BgEffectItem {
+  id: DynamicBgEffect;
+  name: string;
+  desc: string;
+  icon: string;
+}
+
+const BG_EFFECTS: BgEffectItem[] = [
+  { id: 'bubbles', name: '夢幻泡泡', desc: '半透明泡泡緩緩上升，映出柔和虹彩。', icon: '🫧' },
+  { id: 'clouds', name: '流動雲霧', desc: '淡色雲霧在畫面中舒展流動。', icon: '☁️' },
+  { id: 'meteor', name: '流星雨', desc: '細長流星劃過夜空，帶出短暫光軌。', icon: '☄️' },
+  {
+    id: 'stars',
+    name: '深空星辰與流星',
+    desc: '閃爍星海與偶爾劃過夜空的流星，深邃平靜',
+    icon: '🌌',
+  },
+  {
+    id: 'rain',
+    name: '窗扉細雨與漣漪',
+    desc: '緩緩飄落的微雨與地面泛起的水波漣漪',
+    icon: '🌧️',
+  },
+  {
+    id: 'sakura',
+    name: '緋櫻落瓣微風',
+    desc: '粉櫻花瓣隨風飄動翻轉，春日舒緩心境',
+    icon: '🌸',
+  },
+  {
+    id: 'aurora',
+    name: '幻彩北極光波',
+    desc: '如夢似幻的極光光幕緩緩起伏流轉',
+    icon: '✨',
+  },
+  {
+    id: 'embers',
+    name: '壁爐營火餘燼',
+    desc: '暖橘星火向上緩緩升騰飄散，溫暖治癒',
+    icon: '🔥',
+  },
+  {
+    id: 'snow',
+    name: '靜謐冬夜落雪',
+    desc: '片片雪花輕柔飄落，純白寧靜的冬日自習室',
+    icon: '❄️',
+  },
+  {
+    id: 'matrix',
+    name: '數位駭客代碼雨',
+    desc: '極客螢光綠代碼瀑布傾瀉，沉浸式編程專注',
+    icon: '💻',
+  },
+  {
+    id: 'bokeh',
+    name: '溫暖光斑 (Bokeh)',
+    desc: '如陽光穿透樹梢的柔焦光斑浮動，浪漫愜意',
+    icon: '🌿',
+  },
+  {
+    id: 'none',
+    name: '極簡無動效',
+    desc: '關閉背景動態特效，保持完全純淨無干擾',
+    icon: '🚫',
+  },
+];
+
 export const ThemeStyleModal: React.FC<ThemeStyleModalProps> = ({
   isOpen,
   onClose,
@@ -190,6 +259,8 @@ export const ThemeStyleModal: React.FC<ThemeStyleModalProps> = ({
   onSelectClockStyle,
   currentTextStyle = 'default',
   onSelectTextStyle,
+  currentBgEffect = 'stars',
+  onSelectBgEffect,
 }) => {
   if (!isOpen) return null;
 
@@ -331,6 +402,42 @@ export const ThemeStyleModal: React.FC<ThemeStyleModalProps> = ({
                     <span className={`text-2xl font-bold tracking-tight select-none ${style.previewClass}`}>
                       {style.previewSample}
                     </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 4. Dynamic Background Effects */}
+        <div className="mt-6 pt-5 border-t border-neutral-800 space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>動態氛圍背景特效 (9 款動態粒子與環境)</span>
+            </h4>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            {BG_EFFECTS.map(bg => {
+              const isSelected = (currentBgEffect || 'stars') === bg.id;
+              return (
+                <div
+                  key={bg.id}
+                  onClick={() => onSelectBgEffect?.(bg.id)}
+                  className={`p-3 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between text-left ${
+                    isSelected
+                      ? 'bg-neutral-800/90 border-amber-500/60 shadow-sm ring-1 ring-amber-500/30'
+                      : 'bg-neutral-950/60 border-neutral-800 hover:border-neutral-700'
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xl select-none">{bg.icon}</span>
+                      {isSelected && <Check className="w-4 h-4 text-amber-400 shrink-0" />}
+                    </div>
+                    <div className="text-xs font-semibold text-neutral-100">{bg.name}</div>
+                    <div className="text-[10px] text-neutral-400 mt-1 leading-tight">{bg.desc}</div>
                   </div>
                 </div>
               );

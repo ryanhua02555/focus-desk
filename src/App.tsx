@@ -15,6 +15,7 @@ import {
   CustomPreset,
   ClockStyle,
   TextStyleMode,
+  DynamicBgEffect,
 } from './types/pomodoro';
 import {
   DEFAULT_SETTINGS,
