@@ -25,6 +25,7 @@ interface TimerDisplayProps {
   onOpenZen: () => void;
   onOpenCustomTime: () => void;
   onOpenThemeStyle: () => void;
+  theme?: string;
 }
 
 
@@ -49,6 +50,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
   onOpenZen,
   onOpenCustomTime,
   onOpenThemeStyle,
+  theme,
 }) => {
   const hours = Math.floor(timeLeft / 3600);
   const remaining = timeLeft % 3600;
@@ -66,10 +68,54 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
+  const pomodoroLabel =
+    theme === 'halloween'
+      ? '🎃 萌鬼專注'
+      : theme === 'christmas'
+      ? '🎄 聖誕心流'
+      : '專注讀書';
+  const shortBreakLabel =
+    theme === 'halloween'
+      ? '🍬 吃糖小憩'
+      : theme === 'christmas'
+      ? '☕ 暖心熱可可'
+      : '短休息';
+  const longBreakLabel =
+    theme === 'halloween'
+      ? '🌙 城堡夜憩'
+      : theme === 'christmas'
+      ? '🎁 拆禮物長歇'
+      : '長休息';
+  const tomatoEmoji =
+    theme === 'halloween'
+      ? '🎃'
+      : theme === 'christmas'
+      ? '🎁'
+      : '🍅';
+
   // Active theme colors
   const modeColor =
     mode === 'pomodoro'
-      ? { stroke: 'var(--accent-color, #fbbf24)', text: 'text-amber-400', bg: 'bg-amber-500/10' }
+      ? {
+          stroke:
+            theme === 'halloween'
+              ? '#ff7a18'
+              : theme === 'christmas'
+              ? '#ef4444'
+              : 'var(--accent-color, #fbbf24)',
+          text:
+            theme === 'halloween'
+              ? 'text-orange-400'
+              : theme === 'christmas'
+              ? 'text-red-400'
+              : 'text-amber-400',
+          bg:
+            theme === 'halloween'
+              ? 'bg-orange-500/10'
+              : theme === 'christmas'
+              ? 'bg-red-500/10'
+              : 'bg-amber-500/10',
+        }
       : mode === 'shortBreak'
       ? { stroke: '#38bdf8', text: 'text-sky-400', bg: 'bg-sky-500/10' }
       : { stroke: '#a855f7', text: 'text-purple-400', bg: 'bg-purple-500/10' };
@@ -86,7 +132,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
               : 'text-neutral-400 hover:text-neutral-200'
           }`}
         >
-          專注讀書 ({formatSecondsToHms(settings.pomodoroSeconds).formatted})
+          {pomodoroLabel} ({formatSecondsToHms(settings.pomodoroSeconds).formatted})
         </button>
         <button
           onClick={() => onChangeMode('shortBreak')}
@@ -96,7 +142,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
               : 'text-neutral-400 hover:text-neutral-200'
           }`}
         >
-          短休息 ({formatSecondsToHms(settings.shortBreakSeconds).formatted})
+          {shortBreakLabel} ({formatSecondsToHms(settings.shortBreakSeconds).formatted})
         </button>
         <button
           onClick={() => onChangeMode('longBreak')}
@@ -106,7 +152,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
               : 'text-neutral-400 hover:text-neutral-200'
           }`}
         >
-          長休息 ({formatSecondsToHms(settings.longBreakSeconds).formatted})
+          {longBreakLabel} ({formatSecondsToHms(settings.longBreakSeconds).formatted})
         </button>
       </div>
 
@@ -132,7 +178,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
 
             <div className="flex items-center gap-2 shrink-0">
               <span className="font-mono text-xs text-neutral-300 px-2 py-1 bg-neutral-950 rounded-lg border border-neutral-800">
-                🍅 {activeTask.completedTomatoes} / {activeTask.estimatedTomatoes}
+                {tomatoEmoji} {activeTask.completedTomatoes} / {activeTask.estimatedTomatoes}
               </span>
               <button
                 onClick={onOpenTasks}
@@ -209,10 +255,26 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
             <div className={`text-xs font-medium mt-1 tracking-wider uppercase ${modeColor.text}`}>
               {mode === 'pomodoro'
                 ? isRunning
-                  ? '深度專注中'
+                  ? theme === 'halloween'
+                    ? '🎃 萌鬼魔法熬煮中'
+                    : theme === 'christmas'
+                    ? '❄️ 暖雪心流進行中'
+                    : '深度專注中'
+                  : theme === 'halloween'
+                  ? '準備施展專注魔法'
+                  : theme === 'christmas'
+                  ? '點亮聖誕專注之星'
                   : '準備好開始'
                 : mode === 'shortBreak'
-                ? '短暫小憩'
+                ? theme === 'halloween'
+                  ? '🍬 享用萬聖糖果小憩'
+                  : theme === 'christmas'
+                  ? '☕ 暖暖熱可可時光'
+                  : '短暫小憩'
+                : theme === 'halloween'
+                ? '🌙 蝙蝠古堡深層冥想'
+                : theme === 'christmas'
+                ? '🎁 壁爐前拆禮物長歇'
                 : '深層放鬆'}
             </div>
 
@@ -243,7 +305,21 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
           minutes={minutes}
           seconds={seconds}
           onClick={onOpenCustomTime}
-          modeLabel={mode === 'pomodoro' ? '深度專注中' : mode === 'shortBreak' ? '短暫休息' : '長休息'}
+          modeLabel={
+            mode === 'pomodoro'
+              ? theme === 'halloween'
+                ? '🎃 萌鬼專注中'
+                : theme === 'christmas'
+                ? '🎄 聖誕心流中'
+                : '深度專注中'
+              : mode === 'shortBreak'
+              ? theme === 'halloween'
+                ? '🍬 吃糖小憩'
+                : theme === 'christmas'
+                ? '☕ 暖心熱可可'
+                : '短暫休息'
+              : '長休息'
+          }
         />
       )}
 
@@ -260,12 +336,26 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
           {/* Subtle breathing line */}
           <div className="w-48 h-1 bg-neutral-800 rounded-full mt-4 overflow-hidden">
             <div
-              style={{ width: `${progressPercent}%` }}
-              className="h-full bg-amber-400 transition-all duration-500"
+              style={{
+                width: `${progressPercent}%`,
+                backgroundColor:
+                  theme === 'halloween'
+                    ? '#ff7a18'
+                    : theme === 'christmas'
+                    ? '#ef4444'
+                    : 'var(--accent-color, #fbbf24)',
+              }}
+              className="h-full transition-all duration-500"
             />
           </div>
           <div className={`text-xs font-medium mt-3 tracking-wider uppercase ${modeColor.text}`}>
-            {mode === 'pomodoro' ? '深度專注中' : '休息中'}
+            {mode === 'pomodoro'
+              ? theme === 'halloween'
+                ? '🎃 萌鬼專注中'
+                : theme === 'christmas'
+                ? '🎄 聖誕心流中'
+                : '深度專注中'
+              : '休息中'}
           </div>
         </div>
       )}
@@ -287,6 +377,10 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
           className={`px-8 py-4 rounded-2xl font-semibold text-base transition-all flex items-center gap-3 shadow-lg ${
             isRunning
               ? 'bg-neutral-800 hover:bg-neutral-700 text-neutral-100 border border-neutral-700'
+              : theme === 'halloween'
+              ? 'bg-orange-500 hover:bg-orange-400 text-neutral-950 shadow-orange-500/25 hover:scale-[1.02]'
+              : theme === 'christmas'
+              ? 'bg-red-500 hover:bg-red-400 text-white shadow-red-500/25 hover:scale-[1.02]'
               : 'bg-amber-400 hover:bg-amber-300 text-neutral-950 shadow-amber-500/20 hover:scale-[1.02]'
           }`}
         >

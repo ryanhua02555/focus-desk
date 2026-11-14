@@ -72,6 +72,22 @@ const THEMES: ThemeItem[] = [
     swatchSurface: 'bg-[#141804]',
     swatchAccent: 'bg-[#eab308]',
   },
+  {
+    id: 'halloween',
+    name: '🎃 Q版萌鬼萬聖',
+    tagline: '南瓜夜派對！小幽靈、糖果與魔法藥水陪伴心流',
+    swatchBg: 'bg-[#12091f]',
+    swatchSurface: 'bg-[#201235]',
+    swatchAccent: 'bg-[#ff7a18]',
+  },
+  {
+    id: 'christmas',
+    name: '🎄 Q版暖雪聖誕',
+    tagline: '暖心雪人與聖誕樹！薑餅屋、紅綠鈴鐺與飄雪氛圍',
+    swatchBg: 'bg-[#0a1c14]',
+    swatchSurface: 'bg-[#142c20]',
+    swatchAccent: 'bg-[#ef4444]',
+  },
 ];
 
 const CLOCK_STYLES: { id: ClockStyle; name: string; desc: string; icon: React.ReactNode }[] = [
@@ -130,7 +146,7 @@ export const ThemeStyleModal: React.FC<ThemeStyleModalProps> = ({
         {/* 1. Themes Grid */}
         <div className="mt-5 space-y-3">
           <h4 className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
-            讀書環境主題 (6 種氛圍)
+            讀書環境主題 (8 種氛圍與 Q 版節慶)
           </h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

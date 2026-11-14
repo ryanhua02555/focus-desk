@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TimerMode, Task, ClockStyle, StudyQuote } from '../types/pomodoro';
+import { TimerMode, Task, ClockStyle, StudyQuote, ThemeMode } from '../types/pomodoro';
 import { Play, Pause, Minimize2, Volume2, SkipForward, RefreshCw } from 'lucide-react';
 import { FlipClockDisplay } from './FlipClock';
 
@@ -16,6 +16,7 @@ interface ZenModeOverlayProps {
   onOpenAmbient: () => void;
   clockStyle?: ClockStyle;
   quote?: StudyQuote;
+  theme?: ThemeMode;
 }
 
 export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
@@ -31,6 +32,7 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
   onOpenAmbient,
   clockStyle = 'ring',
   quote,
+  theme,
 }) => {
   // ESC key to exit Zen mode
   useEffect(() => {
@@ -59,15 +61,49 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
   const timeFormatted = hours > 0 ? `${hrStr}:${minStr}:${secStr}` : `${minStr}:${secStr}`;
 
   const modeLabel =
-    mode === 'pomodoro' ? '深度專注中' : mode === 'shortBreak' ? '短暫休息時間' : '深度長休息';
+    mode === 'pomodoro'
+      ? theme === 'halloween'
+        ? '🎃 萌鬼深度專注中'
+        : theme === 'christmas'
+        ? '🎄 暖雪聖誕心流中'
+        : '深度專注中'
+      : mode === 'shortBreak'
+      ? theme === 'halloween'
+        ? '🍬 萬聖吃糖小憩'
+        : theme === 'christmas'
+        ? '☕ 暖心熱可可時間'
+        : '短暫休息時間'
+      : '深度長休息';
 
   return (
-    <div className="fixed inset-0 z-50 bg-neutral-950 flex flex-col items-center justify-between p-8 text-neutral-100 select-none animate-in fade-in duration-300">
+    <div
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-between p-8 text-neutral-100 select-none animate-in fade-in duration-300 ${
+        theme === 'halloween'
+          ? 'bg-[#12091f]'
+          : theme === 'christmas'
+          ? 'bg-[#0a1c14]'
+          : 'bg-neutral-950'
+      }`}
+    >
       {/* Top Bar in Zen */}
       <div className="w-full max-w-4xl flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-neutral-400">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-          <span className="tracking-widest uppercase font-mono">ZEN FOCUS MODE</span>
+          <span
+            className={`w-2 h-2 rounded-full animate-pulse ${
+              theme === 'halloween'
+                ? 'bg-orange-400'
+                : theme === 'christmas'
+                ? 'bg-red-400'
+                : 'bg-amber-400'
+            }`}
+          />
+          <span className="tracking-widest uppercase font-mono">
+            {theme === 'halloween'
+              ? '🎃 SPOOKY CHIBI ZEN'
+              : theme === 'christmas'
+              ? '🎄 COZY SNOW ZEN'
+              : 'ZEN FOCUS MODE'}
+          </span>
           <span className="text-neutral-600">· 按 ESC 或右上角退出</span>
         </div>
 
@@ -124,7 +160,7 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
               {activeTask.title}
             </div>
             <div className="text-xs text-neutral-400 font-mono mt-1">
-              🍅 {activeTask.completedTomatoes} / {activeTask.estimatedTomatoes}
+              {theme === 'halloween' ? '🎃' : theme === 'christmas' ? '🎁' : '🍅'} {activeTask.completedTomatoes} / {activeTask.estimatedTomatoes}
             </div>
           </div>
         ) : (
@@ -148,7 +184,11 @@ export const ZenModeOverlay: React.FC<ZenModeOverlayProps> = ({
             className={`px-8 py-4 rounded-2xl font-semibold text-base transition-all flex items-center gap-3 shadow-xl ${
               isRunning
                 ? 'bg-neutral-800 hover:bg-neutral-700 text-neutral-100 border border-neutral-700'
-                : 'bg-amber-400 hover:bg-amber-300 text-neutral-950 shadow-amber-500/20'
+                : theme === 'halloween'
+                ? 'bg-orange-500 hover:bg-orange-400 text-neutral-950 shadow-orange-500/25 hover:scale-[1.02]'
+                : theme === 'christmas'
+                ? 'bg-red-500 hover:bg-red-400 text-white shadow-red-500/25 hover:scale-[1.02]'
+                : 'bg-amber-400 hover:bg-amber-300 text-neutral-950 shadow-amber-500/20 hover:scale-[1.02]'
             }`}
           >
             {isRunning ? (

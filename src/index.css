@@ -76,9 +76,118 @@
     --accent-color: #eab308;
   }
 
+  /* 7. Q版萌鬼萬聖 (Chibi Halloween) */
+  html.theme-halloween {
+    --bg-page: #12091f;
+    --bg-surface: #1e1133;
+    --border-color: rgba(249, 115, 22, 0.22);
+    --text-primary: #faf5ff;
+    --text-muted: #c084fc;
+    --accent-color: #ff7a18;
+  }
+
+  /* 8. Q版暖雪聖誕 (Chibi Christmas) */
+  html.theme-christmas {
+    --bg-page: #0a1c14;
+    --bg-surface: #12281d;
+    --border-color: rgba(239, 68, 68, 0.22);
+    --text-primary: #f0fdf4;
+    --text-muted: #86efac;
+    --accent-color: #ef4444;
+  }
+
+  html.theme-halloween .bg-neutral-900 {
+    background-color: #1e1133 !important;
+  }
+  html.theme-halloween .bg-neutral-950 {
+    background-color: #140a24 !important;
+  }
+  html.theme-halloween .bg-neutral-800 {
+    background-color: #2b1847 !important;
+  }
+  html.theme-halloween .border-neutral-800 {
+    border-color: rgba(249, 115, 22, 0.2) !important;
+  }
+  html.theme-halloween .border-neutral-700 {
+    border-color: rgba(249, 115, 22, 0.35) !important;
+  }
+
+  html.theme-christmas .bg-neutral-900 {
+    background-color: #12281d !important;
+  }
+  html.theme-christmas .bg-neutral-950 {
+    background-color: #0b1a13 !important;
+  }
+  html.theme-christmas .bg-neutral-800 {
+    background-color: #1c3c2c !important;
+  }
+  html.theme-christmas .border-neutral-800 {
+    border-color: rgba(239, 68, 68, 0.2) !important;
+  }
+  html.theme-christmas .border-neutral-700 {
+    border-color: rgba(239, 68, 68, 0.35) !important;
+  }
+
   * {
     border-color: var(--border-color);
   }
+}
+
+/* Q版 Floating & Bobbing Animations */
+@keyframes cute-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes cute-bounce-slow {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.03);
+  }
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translateY(-10px) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) translateX(25px);
+    opacity: 0;
+  }
+}
+
+@keyframes spooky-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 122, 24, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.85));
+  }
+}
+
+.animate-cute-float {
+  animation: cute-float 3.5s ease-in-out infinite;
+}
+
+.animate-cute-bounce {
+  animation: cute-bounce-slow 2.4s ease-in-out infinite;
+}
+
+.animate-spooky-glow {
+  animation: spooky-glow 3s ease-in-out infinite;
 }
 
 /* 3D Mechanical Split-Flap Animation */

@@ -44,6 +44,7 @@ import { ZenModeOverlay } from './components/ZenModeOverlay';
 import { SettingsModal } from './components/SettingsModal';
 import { CustomTimeModal } from './components/CustomTimeModal';
 import { ThemeStyleModal } from './components/ThemeStyleModal';
+import { SeasonalThemeDecorations } from './components/SeasonalThemeDecorations';
 import { Timer as TimerIcon, CheckSquare, BarChart2, MessageSquare } from 'lucide-react';
 
 export default function App() {
@@ -147,11 +148,20 @@ export default function App() {
     localStorage.setItem(STORAGE_KEYS.THEME, theme);
     const root = document.documentElement;
     // Remove all previous theme classes
-    root.classList.remove('theme-dark', 'theme-light', 'theme-kyoto', 'theme-forest', 'theme-sunset', 'theme-retro');
+    root.classList.remove(
+      'theme-dark',
+      'theme-light',
+      'theme-kyoto',
+      'theme-forest',
+      'theme-sunset',
+      'theme-retro',
+      'theme-halloween',
+      'theme-christmas'
+    );
     root.classList.add(`theme-${theme}`);
 
     // Manage standard dark mode variant
-    if (['dark', 'forest', 'sunset', 'retro'].includes(theme)) {
+    if (['dark', 'forest', 'sunset', 'retro', 'halloween', 'christmas'].includes(theme)) {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
@@ -551,6 +561,7 @@ export default function App() {
             onOpenZen={() => setIsZenOpen(true)}
             onOpenCustomTime={() => setIsCustomTimeOpen(true)}
             onOpenThemeStyle={() => setIsThemeStyleOpen(true)}
+            theme={theme}
           />
         )}
 
@@ -660,6 +671,7 @@ export default function App() {
         onOpenAmbient={() => setIsAmbientOpen(true)}
         clockStyle={settings.clockStyle}
         quote={currentQuote}
+        theme={theme}
       />
 
 
@@ -691,6 +703,9 @@ export default function App() {
         currentClockStyle={settings.clockStyle || 'ring'}
         onSelectClockStyle={handleSelectClockStyle}
       />
+
+      {/* Q版 Festive Mascot & Decorations */}
+      <SeasonalThemeDecorations theme={theme} />
     </div>
   );
 }

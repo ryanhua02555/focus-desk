@@ -350,6 +350,36 @@ export const STUDY_QUOTES: StudyQuote[] = [
     translation: '萬里遠征起於當下的第一步；千百卷深奧學問，皆在滴答計時的專注中積累而成。',
     author: '老子《道德經》· 專注釋義',
   },
+
+  // 15. Q版節慶專屬 (Festive Quotes)
+  {
+    id: 'q-fest-hal-1',
+    subject: '萬聖自習',
+    original: 'Curiosity is the pumpkin lantern that lights up the dark unknown.',
+    translation: '好奇心是驅散恐懼的南瓜燈；每一次深思，都是點亮未知領域的可愛魔法。',
+    author: '🎃 萬聖心流小隊',
+  },
+  {
+    id: 'q-fest-hal-2',
+    subject: '萬聖自習',
+    original: 'Focus is the cauldron where knowledge turns into real magic.',
+    translation: '知識是最高階的魔法秘方，而沉靜專注則是熬煮出真正智慧的坩堝。',
+    author: '👻 萌鬼學者',
+  },
+  {
+    id: 'q-fest-xmas-1',
+    subject: '聖誕靜讀',
+    original: 'The best gift for your future self is the quiet focus you invest today.',
+    translation: '送給未來自己最棒的聖誕禮物，正是今天你在安靜自習中所投資的每一個番茄鐘。',
+    author: '🎄 暖雪手記',
+  },
+  {
+    id: 'q-fest-xmas-2',
+    subject: '聖誕靜讀',
+    original: 'Even in the deepest winter, knowledge keeps a warm eternal summer in the heart.',
+    translation: '即使窗外雪花紛飛，只要心中有熱切的求知之火，自習桌前便是溫暖長夏。',
+    author: '⛄ 暖心雪人',
+  },
 ];
 
 export function getQuotesForSubject(subjectName?: string): StudyQuote[] {

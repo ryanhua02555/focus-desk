@@ -71,7 +71,7 @@ export interface PomodoroSettings {
 }
 
 
-export type ThemeMode = 'dark' | 'light' | 'kyoto' | 'forest' | 'sunset' | 'retro';
+export type ThemeMode = 'dark' | 'light' | 'kyoto' | 'forest' | 'sunset' | 'retro' | 'halloween' | 'christmas';
 export type ClockStyle = 'ring' | 'flip' | 'minimal';
 
 export interface StudyQuote {
