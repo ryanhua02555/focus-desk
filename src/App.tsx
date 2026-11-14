@@ -47,6 +47,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { CustomTimeModal } from './components/CustomTimeModal';
 import { ThemeStyleModal } from './components/ThemeStyleModal';
 import { SeasonalThemeDecorations } from './components/SeasonalThemeDecorations';
+import { DynamicBackground } from './components/DynamicBackground';
 import { Timer as TimerIcon, CheckSquare, BarChart2, MessageSquare } from 'lucide-react';
 
 export default function App() {
@@ -502,6 +503,10 @@ export default function App() {
     setSettings(prev => ({ ...prev, textStyle }));
   };
 
+  const handleSelectBgEffect = (bgEffect: DynamicBgEffect) => {
+    setSettings(prev => ({ ...prev, bgEffect }));
+  };
+
   const activeTask = tasks.find(t => t.id === activeTaskId) || null;
   const pendingNotesCount = notes.filter(n => !n.isHandled).length;
 
@@ -528,8 +533,11 @@ export default function App() {
         backgroundColor: 'var(--bg-page)',
         color: 'var(--text-primary)',
       }}
-      className="min-h-screen transition-colors duration-300 flex flex-col font-sans"
+      className="min-h-screen transition-colors duration-300 flex flex-col font-sans relative"
     >
+            {/* Global dynamic canvas background - behind all content, above page bg */}
+      <DynamicBackground effect={settings.bgEffect || 'stars'} theme={theme} />
+
       {/* Top Navbar */}
       <Navbar
         currentTab={currentTab}
@@ -544,7 +552,7 @@ export default function App() {
       />
 
       {/* Main Workspace Body */}
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col justify-center">
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col justify-center relative z-10">
         {currentTab === 'timer' && (
           <TimerDisplay
             mode={mode}
@@ -648,7 +656,7 @@ export default function App() {
       </div>
 
       {/* Footer */}
-      <footer className="py-4 border-t border-neutral-800 text-center text-xs text-neutral-500">
+      <footer className="py-4 border-t border-neutral-800 text-center text-xs text-neutral-500 relative z-10">
         <div className="flex items-center justify-center gap-3">
           <span>墨讀 FocusDesk</span>
           <span aria-hidden="true">·</span>
@@ -711,6 +719,8 @@ export default function App() {
         onSelectClockStyle={handleSelectClockStyle}
         currentTextStyle={settings.textStyle || 'default'}
         onSelectTextStyle={handleSelectTextStyle}
+        currentBgEffect={settings.bgEffect || 'stars'}
+        onSelectBgEffect={handleSelectBgEffect}
       />
 
       {/* Q版 Festive Mascot & Decorations */}
